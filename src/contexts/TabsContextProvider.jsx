@@ -1,29 +1,38 @@
-/* eslint-disable react-refresh/only-export-components */
 import { nanoid } from 'nanoid'
-import React, { createContext, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { initialTabs } from '../assets/assets'
-
-export const TabsContext = createContext()
+import { TabsContext } from './TabsContext'
 
 export const TabsProvider = ({ children }) => {
 
     const [tabs, setTabs] = useState(initialTabs)
     const [activeTabId, setActiveTabId] = useState("1")
+    const [activeSectionId, setActiveSectionId] = useState(initialTabs[0]?.sections[0]?.id)
 
     const addTab = () => {
         const newTabId = nanoid()
+        const firstSectionId = nanoid(5)
         const newTab = {
             id: newTabId,
             title: `Tài liệu mới ${tabs.length + 1}`,
             sections: [
                 {
-                    id: nanoid(5),
-                    title: 'Mục mới'
+                    id: firstSectionId,
+                    title: 'Mục mới',
+                    content: 'Nội dung mặc định.'
                 }
             ]
         }
         setTabs([...tabs, newTab])
         setActiveTabId(newTab.id)
+        setActiveSectionId(firstSectionId)
+    }
+
+    const switchTab = (tabId) => {
+        const newActiveTab = tabs.find((tab) => tab.id === tabId)
+        setActiveTabId(tabId)
+        // When switching tabs, always active the first section of the new tab
+        setActiveSectionId(newActiveTab?.sections[0]?.id)
     }
 
     const removeTab = (tabIdRemove) => {
@@ -38,21 +47,29 @@ export const TabsProvider = ({ children }) => {
         if (activeTabId === tabIdRemove) {
             let nextActiveId = null;
             if (newTabs.length > 0) {
-                // Prioritize the right tab (same old index), if not, take the left tab
-                nextActiveId = newTabs[tabIndex]?.id || newTabs[tabIndex - 1]?.id;
+                const nextActiveTab = newTabs[tabIndex] || newTabs[tabIndex - 1];
+                nextActiveId = nextActiveTab.id;
+
+                // Update the active section when the tab is deleted
+                setActiveSectionId(nextActiveTab.sections[0]?.id)
+            } else {
+                setActiveSectionId(null)
             }
-            setActiveTabId(nextActiveId);
+            setActiveTabId(nextActiveId)
         }
         setTabs(newTabs)
     }
 
-    const value = {
+    const value = useMemo(() => ({
         tabs,
         activeTabId,
-        setActiveTabId,
+        activeSectionId,
+        setActiveTabId: switchTab,
+        setActiveSectionId,
         addTab,
         removeTab,
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }), [tabs, activeTabId, activeSectionId])
 
     return (
         <TabsContext.Provider value={value}>

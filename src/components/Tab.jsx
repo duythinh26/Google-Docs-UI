@@ -25,9 +25,9 @@ const Tab = ({ tab }) => {
             <span className="font-medium text-sm truncate max-w-[200px]">{tab.title}</span>
             <button
                 onClick={handleRemoveTab}
-                className="p-1 rounded-full hover:bg-gray-300/50 flex-shrink-0"
+                className="p-1 rounded-full hover:bg-gray-300/50 flex-shrink-0 cursor-pointer"
             >
-                <X size={16} />
+                <X size={16}/>
             </button>
         </div>
     )

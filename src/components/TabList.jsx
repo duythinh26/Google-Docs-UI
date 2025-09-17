@@ -15,7 +15,7 @@ const TabList = () => {
             </div>
             <button
                 onClick={addTab}
-                className="p-2 ml-2 rounded-full hover:bg-gray-200 transition-colors"
+                className="p-2 ml-2 rounded-full hover:bg-gray-200 transition-colors cursor-pointer"
             >
                 <Plus size={20} />
             </button>

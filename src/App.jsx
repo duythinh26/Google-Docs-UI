@@ -1,6 +1,7 @@
+import MainTabContent from "./components/MainTabContent"
 import TabContent from "./components/TabContent"
 import TabList from "./components/TabList"
-import { TabsProvider } from "./contexts/TabContext"
+import { TabsProvider } from "./contexts/TabsContextProvider"
 
 const App = () => {
   return (
@@ -13,11 +14,10 @@ const App = () => {
             <TabContent />
           </aside>
 
-          {/* Main content area of the document (temporarily blank) */}
-          <div className="flex-1 p-8 bg-gray-50">
-            <h1 className="text-2xl font-bold">Nội dung tài liệu...</h1>
-            <p>Phần này sẽ hiển thị chi tiết nội dung của section được chọn.</p>
-          </div>
+          {/* Main content area of the document */}
+          <section className="flex-1 overflow-y-auto">
+            <MainTabContent />
+          </section>
         </main>
         {/* Tabs Bar */}
         <footer className="w-full bg-white shadow-sm">
