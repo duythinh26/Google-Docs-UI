@@ -8,7 +8,7 @@ export const TabsContext = createContext()
 export const TabsProvider = ({ children }) => {
 
     const [tabs, setTabs] = useState(initialTabs)
-    const [activeTabId, setActiveTabId] = useState(1)
+    const [activeTabId, setActiveTabId] = useState("1")
 
     const addTab = () => {
         const newTabId = nanoid()
@@ -43,9 +43,6 @@ export const TabsProvider = ({ children }) => {
             }
             setActiveTabId(nextActiveId);
         }
-
-        setTabs(newTabs);
-
         setTabs(newTabs)
     }
 
