@@ -60,6 +60,39 @@ export const TabsProvider = ({ children }) => {
         setTabs(newTabs)
     }
 
+    const addSection = (tabId, parentSectionId) => {
+        const findAndAdd = (sections, parentId) => {
+            for (const section of sections) {
+                if (section.id === parentId) {
+                    const newSection = {
+                        id: nanoid(5),
+                        title: `Mục con mới`,
+                        content: 'Nội dung cho mục con mới.'
+                    };
+                    // Make sure the children property exists
+                    if (!section.children) {
+                        section.children = []
+                    }
+                    section.children.push(newSection);
+                    return true;
+                }
+                if (section.children && findAndAdd(section.children, parentId)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        setTabs(prevTabs => {
+            const newTabs = JSON.parse(JSON.stringify(prevTabs)) // Deep copy to avoid direct state mutation
+            const tabToUpdate = newTabs.find(tab => tab.id === tabId)
+            if (tabToUpdate) {
+                findAndAdd(tabToUpdate.sections, parentSectionId)
+            }
+            return newTabs
+        })
+    }
+
     const value = useMemo(() => ({
         tabs,
         activeTabId,
@@ -68,7 +101,8 @@ export const TabsProvider = ({ children }) => {
         setActiveSectionId,
         addTab,
         removeTab,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        addSection,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }), [tabs, activeTabId, activeSectionId])
 
     return (

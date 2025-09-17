@@ -1,14 +1,14 @@
 import React from 'react'
 import { useTabs } from '../hooks/useTabs.js';
 import EmptyState from './EmptyState';
-import clsx from 'clsx';
+import SectionItem from './SectionItem.jsx';
 
 const TabContent = () => {
-    const { tabs, activeTabId, activeSectionId, setActiveSectionId } = useTabs()
-    const activeTab = tabs.find((tab) => tab.id === activeTabId);
+    const { tabs, activeTabId } = useTabs()
+    const activeTab = tabs.find((tab) => tab.id === activeTabId)
 
     if (!activeTab) {
-        return <EmptyState />
+        return null;
     }
 
     return (
@@ -16,19 +16,7 @@ const TabContent = () => {
             <h2 className="font-bold text-lg mb-4 truncate">{activeTab.title}</h2>
             <div className="flex flex-col">
                 {activeTab.sections.map((section) => (
-                    <div
-                        key={section.id}
-                        onClick={() => setActiveSectionId(section.id)}
-                        className={clsx(
-                            'px-3 py-2 text-sm cursor-pointer border-l-4',
-                            {
-                                'border-blue-500 bg-blue-50 text-blue-700 font-semibold': section.id === activeSectionId, // Highlight section đầu tiên
-                                'border-transparent hover:bg-gray-100': section.id !== activeSectionId,
-                            }
-                        )}
-                    >
-                        {section.title}
-                    </div>
+                    <SectionItem key={section.id} section={section} />
                 ))}
             </div>
         </div>
