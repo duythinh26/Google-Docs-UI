@@ -4,12 +4,29 @@ import { useTabs } from '../hooks/useTabs'
 
 const MainTabContent = () => {
     const { tabs, activeTabId, activeSectionId } = useTabs()
+
     const activeTab = tabs.find(tab => tab.id === activeTabId)
     if (!activeTab) {
         return <EmptyState />
     }
 
-    const activeSection = activeTab.sections.find(sec => sec.id === activeSectionId)
+    // Recursive function to find item by ID in item tree
+    const findSectionById = (sections, id) => {
+        for (const section of sections) {
+            // If found at current level, return immediately
+            if (section.id === id) return section
+
+            // If not, and if there are children, continue searching in the children
+            if (section.children) {
+                const foundInSection = findSectionById(section.children, id)
+                if (foundInSection) return foundInSection
+            }
+        }
+        // If not found in the entire tree, return null
+        return null
+    }
+
+    const activeSection = findSectionById(activeTab.sections, activeSectionId)
     if (!activeSection) {
         return (
             <div className="flex-1 p-8 bg-gray-50">
@@ -22,7 +39,8 @@ const MainTabContent = () => {
         <div className="flex-1 p-8 bg-gray-50">
             <h1 className="text-3xl font-bold mb-4 border-b pb-2">{activeSection.title}</h1>
             <div className="prose">
-                <p>{activeSection.content}</p>
+                {/* Use whitespace-pre-line to keep line breaks in the content */}
+                <p style={{ whiteSpace: 'pre-line' }}>{activeSection.content}</p>
             </div>
         </div>
     )

@@ -12,7 +12,7 @@ const EmptyState = () => {
             <p className="mt-4 text-lg">Không có tài liệu nào đang mở</p>
             <button
                 onClick={addTab} 
-                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors cursor-pointer"
             >
                 Tạo tài liệu mới
             </button>
