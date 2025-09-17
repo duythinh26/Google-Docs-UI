@@ -6,4 +6,5 @@ export const useTabs = () => {
     if (!context) {
         throw new Error("useTabs must be used within a TabsProvider")
     }
+    return context
 }
