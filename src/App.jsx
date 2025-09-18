@@ -10,7 +10,7 @@ const App = () => {
         {/* Main content and Sidebar section */}
         <main className="flex flex-row flex-grow overflow-hidden">
           {/* Sidebar contains sections */}
-          <aside className="w-56 flex-shrink-0 border-r border-gray-200 overflow-y-auto">
+          <aside className="flex-shrink-0 border-r border-gray-200 overflow-y-auto">
             <TabContent />
           </aside>
 
