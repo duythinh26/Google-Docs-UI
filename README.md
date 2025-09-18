@@ -1,12 +1,38 @@
-# React + Vite
+# Google Docs Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a React project built to mimic the look and feel of Google Docs. Users can open multiple tabs, switch between them, and view their sub-items in a visual hierarchy.
 
-Currently, two official plugins are available:
+The project was created using Vite, using React (with Hooks) for the logic and Tailwind CSS for the responsive design.
+ 
+## Main functions: 
+- Tab Management:
+    - Add new Tab: Click the + button to create a new document.
+    - Close Tab: Click the x button on each tab to close it.
+    - Switch Tab: Click on any tab to view its content. The currently selected tab will be highlighted.
+    - Smart behavior: When closing a tab, the application will automatically switch to the nearest tab. When closing the last tab, a welcome screen will appear.
+- Section Management:
+    - Hierarchical display: Items can be nested (parent item - child item).
+    - Hide/Show child items: Click on the arrow icon next to the parent items to hide or show the child items inside.
+    - Add child item: Hover over the predefined items (I, II, III) and click the + button to quickly create a new child item.
+    - Show Contents: Click on any item (parent or child) to see its detailed content in the right pane.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technology used: 
+- Framework: React
+- Build Tool: Vite
+- Styling: Tailwind CSS
+- State Management: React Context API & Hooks
+- Icons: Lucide React
 
-## Expanding the ESLint configuration
+## Install and run the project:
+To run this project on your machine, follow these steps:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Clone repository:
+    ```bash
+    git clone https://github.com/duythinh26/Google-Docs-UI.git
+
+- Install dependencies: Use npm (or yarn) to install the required packages.
+    ```bash
+    npm install
+- Run development server:
+    ```bash
+    npm run dev
