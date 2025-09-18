@@ -6,11 +6,11 @@ import { TabsProvider } from "./contexts/TabsContextProvider"
 const App = () => {
   return (
     <TabsProvider>
-      <div className="w-full h-screen font-sans flex flex-col">
+      <div className="w-full min-h-screen h-screen font-sans flex flex-col">
         {/* Main content and Sidebar section */}
-        <main className="flex flex-grow">
+        <main className="flex flex-row flex-grow overflow-hidden">
           {/* Sidebar contains sections */}
-          <aside className="w-64 border-r border-gray-200">
+          <aside className="w-56 flex-shrink-0 border-r border-gray-200 overflow-y-auto">
             <TabContent />
           </aside>
 
@@ -20,7 +20,7 @@ const App = () => {
           </section>
         </main>
         {/* Tabs Bar */}
-        <footer className="w-full bg-white shadow-sm">
+        <footer className="w-full bg-white shadow-sm z-10">
           <TabList />
         </footer>
       </div>
